@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Editor\GenerateFolders.cs" />
      <None Include="Assets\Output\output.txt" />
      <None Include="Assets\Plugins\DOTween\readme.txt" />
+     <None Include="Assets\Output\RecyleData.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>E:/SiYuen/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -107,10 +108,10 @@
  <HintPath>E:/SiYuen/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>E:/SiYuen/Practice/Repertory/Assets/Plugins/DOTween/DOTween.dll</HintPath>
+ <HintPath>E:/SiYuen/Github/Repertory/Repertory/Assets/Plugins/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTweenEditor">
- <HintPath>E:/SiYuen/Practice/Repertory/Assets/Plugins/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ <HintPath>E:/SiYuen/Github/Repertory/Repertory/Assets/Plugins/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 /// 处理查询记录
 /// 顺便优化scrollview
 /// </summary>
-public class HistoricalRecords : IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class HistoricalRecords : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
     public const int COUNT = 50;
 
@@ -29,10 +29,30 @@ public class HistoricalRecords : IBeginDragHandler, IDragHandler, IEndDragHandle
     private Vector3 curPos;
     private Vector3 endPos;
 
-    public HistoricalRecords(ScrollRect scroll)
+    void Awake()
     {
-        view = scroll;
+        view = this.GetComponent<ScrollRect>();
         Init();
+    }
+
+    /// <summary>
+    /// 清空，放入资源池
+    /// </summary>
+    public void Clear()
+    {
+        for (int i = 0; i < curPool.Count; i++)
+        {
+            ResourcesMgr.Instance().PushPool(PrefabDefine.RECORD, curPool[i]);
+        }
+    }
+
+    /// <summary>
+    /// 刷新view
+    /// </summary>
+    public void Refresh()
+    {
+        Clear();
+        InitUI();
     }
 
     private void Init()
@@ -83,7 +103,6 @@ public class HistoricalRecords : IBeginDragHandler, IDragHandler, IEndDragHandle
     {
         if (idx > btnList.Count)
             return;
-
     }
 
     #region 循环利用item
@@ -92,11 +111,12 @@ public class HistoricalRecords : IBeginDragHandler, IDragHandler, IEndDragHandle
     /// </summary>
     void RefreshUI()
     {
+        int needCount = Recyle.Instance().pathList.Count;
         //判断向上还是向下
         if (curPos.y > beginPos.y)
         {
             //Debug.Log("向下");
-            if (curTail >= COUNT - 1)
+            if (curTail >= needCount - 1)
                 return;
             int count = curPool.Count;
             int idx = 0;
@@ -147,20 +167,20 @@ public class HistoricalRecords : IBeginDragHandler, IDragHandler, IEndDragHandle
         newGO.transform.localScale = Vector3.one;
         if (tail)
         {
-            Debug.Log("添加到尾部:" + id);
+            //Debug.Log("添加到尾部:" + id);
             newGO.transform.localPosition = curPool[curPool.Count - 1].transform.localPosition - new Vector3(0, cellSize.y, 0);
             curHead++;
             curPool.Add(newGO);
         }
         else
         {
-            Debug.Log("添加到头部:" + id);
+            //Debug.Log("添加到头部:" + id);
             newGO.transform.localPosition = curPool[0].transform.localPosition + new Vector3(0, cellSize.y, 0);
             curTail--;
             curPool.Insert(0, newGO);
         }
-        newGO.name = "Info" + id;
-        newGO.transform.Find("Text").GetComponent<Text>().text = id.ToString();
+        newGO.name = "record_" + id;
+        newGO.transform.Find("Text").GetComponent<Text>().text = Recyle.Instance().pathList[id];
         beginPos = contentTrans.localPosition;
     }
 	

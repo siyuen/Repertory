@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 public class Repertory : MonoBehaviour {
 
-    //@消除转移
+    //@消除转义
     public string PATH;//E:/SiYuen/Practice/Repertory/Assets
     //文件后缀
     public const string EXTENSION_AVI = ".avi";
@@ -31,7 +31,7 @@ public class Repertory : MonoBehaviour {
     public InputField inputText;
     public InputField debugText;
     public InputField recyleText;
-    public ScrollRect scrollView;
+    public HistoricalRecords recordView;
     //模式
     public Toggle singleNumber;
     public Toggle allNumber;
@@ -49,7 +49,6 @@ public class Repertory : MonoBehaviour {
         InitUI();
 	}
 
-
     void InitUI()
     {
         singleNumber.onValueChanged.AddListener(FirstType);
@@ -57,11 +56,8 @@ public class Repertory : MonoBehaviour {
         allNumber.onValueChanged.AddListener(SecondType);
 
         btn.onClick.AddListener(LogPath);
-        if (scrollView)
-            records = new HistoricalRecords(scrollView);
     }
 
-  
 	// Update is called once per frame
 	void Update () {
 		
@@ -138,7 +134,9 @@ public class Repertory : MonoBehaviour {
         outputText.text = outputText.text + num;
         
         SetDebug(data);
+        //更新历史记录并刷新
         Recyle.Instance().PushPool(PATH);
+        recordView.Refresh();
     }
 
     /// <summary>
@@ -192,6 +190,7 @@ public class Repertory : MonoBehaviour {
 
     #endregion
 
+    #region 方法
     private void GetPath()
     {
         if (type == SearchType.single)
@@ -269,4 +268,5 @@ public class Repertory : MonoBehaviour {
         string pre = string.IsNullOrEmpty(inputText.text) ? "" : inputText.text;
         name = name.Substring(name.IndexOf(pre) + pre.Length);
     }
+    #endregion
 }

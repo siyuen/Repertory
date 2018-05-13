@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\ResourcesMgr.cs" />
      <None Include="Assets\Output\output.txt" />
      <None Include="Assets\Plugins\DOTween\readme.txt" />
+     <None Include="Assets\Output\RecyleData.txt" />
  <Reference Include="UnityEngine.Networking">
  <HintPath>E:/SiYuen/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
@@ -76,7 +77,7 @@
  <HintPath>E:/SiYuen/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>E:/SiYuen/Practice/Repertory/Assets/Plugins/DOTween/DOTween.dll</HintPath>
+ <HintPath>E:/SiYuen/Github/Repertory/Repertory/Assets/Plugins/DOTween/DOTween.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
