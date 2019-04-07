@@ -167,11 +167,16 @@ public class Repertory : MonoBehaviour {
                 string pre = string.IsNullOrEmpty(inputText.text) ? "" : inputText.text;
 
                 RemovePre(ref name);
+                var oldName = name;
                 Helper.String2Int2(ref name);
+                var newName = name;
                 name = PATH + "\\" + pre + "_" + name;
 
                 if (File.Exists(path))
+                {
+                    Debug.Log(oldName + "替换成:" + newName);
                     File.Move(path, name);
+                }
                 //data.Add(name);
             }
         }
@@ -306,7 +311,7 @@ public class Repertory : MonoBehaviour {
     private void RemovePre(ref string name)
     {
         string pre = string.IsNullOrEmpty(inputText.text) ? "" : inputText.text;
-        name = name.Substring(name.IndexOf(pre) + pre.Length);
+        name = name.Substring(pre.Length + 1);
     }
     #endregion
 }
