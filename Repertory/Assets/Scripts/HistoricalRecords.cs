@@ -12,6 +12,7 @@ using UnityEngine.EventSystems;
 public class HistoricalRecords : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
     public const int COUNT = 50;
+    public Button clearBtn;
 
     private ScrollRect view;
     private RectTransform viewPointTrans;
@@ -59,6 +60,7 @@ public class HistoricalRecords : MonoBehaviour, IBeginDragHandler, IDragHandler,
     {
         viewPointTrans = view.transform.Find("Viewport").GetComponent<RectTransform>();
         contentTrans = viewPointTrans.transform.Find("Content").GetComponent<RectTransform>();
+        clearBtn.onClick.AddListener(OnClickClear);
 
         InitUI();
     }
@@ -90,10 +92,32 @@ public class HistoricalRecords : MonoBehaviour, IBeginDragHandler, IDragHandler,
             go.transform.SetParent(contentTrans);
             go.transform.localScale = Vector3.one;
             go.transform.Find("Text").GetComponent<Text>().text = Recyle.Instance().pathList[i];
-            curPool.Add(go);
+
+            Button btn = go.GetComponent<Button>();
+            btn.onClick.AddListener(delegate()
+            {
+                OnClickRecord(go);
+            });
         }
         curHead = 0;
         curTail = (int)count - 1;
+    }
+
+    private void OnClickClear()
+    {
+        Recyle.Instance().ClearPath();
+
+        Clear();
+    }
+
+    /// <summary>
+    /// 点击历史记录
+    /// </summary>
+    private void OnClickRecord(GameObject btn)
+    {
+        Text txt = btn.transform.Find("Text").GetComponent<Text>();
+
+        EventMgr.Instance().DispathEvent(EventDefine.ONCLICK_RECARD, EventMgr.Instance().GetParam(0, txt.text));
     }
 
     /// <summary>

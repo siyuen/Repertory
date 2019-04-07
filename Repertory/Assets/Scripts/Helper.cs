@@ -87,9 +87,36 @@ public class Helper {
 
         int count = number.Length;
         string newNumber = "";
+        bool bDone = false;
+
         for (int i = 0; i < count; i++)
-            if ((int)number[i] >= 48 && (int)number[i] <= 57)
+        {
+            if ((int)number[i] >= 48 && (int)number[i] <= 57 && !bDone)
                 newNumber += number[i];
+            else
+                if (i > 3)
+                    bDone = true;
+        }
+        number = newNumber;
+    }
+
+    public static void String2Int2(ref string number)
+    {
+        if (string.IsNullOrEmpty(number))
+            return;
+
+        int count = number.Length;
+        string newNumber = "";
+        bool bStart = false;
+
+        for (int i = 0; i < count; i++)
+        {
+            if ((int)number[i] >= 48 && (int)number[i] <= 57 && !bStart)
+                bStart = true;
+                
+            if (bStart)
+                newNumber += number[i];
+        }
         number = newNumber;
     }
 

@@ -106,4 +106,24 @@ public class Recyle {
         sr.Close();
         sr.Dispose();  
     }
+
+    /// <summary>
+    /// 清除记录
+    /// </summary>
+    public void ClearPath()
+    {
+        StreamReader sr;
+        string path = Application.dataPath + "/Output/" + NAME;
+
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            File.CreateText(path);
+        }
+        else
+        {
+            Debug.LogWarning("Not find files!");
+            return;
+        }
+    }
 }

@@ -46,12 +46,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Helper.cs" />
+     <Compile Include="Assets\Scripts\Framework\EventConfig.cs" />
+     <Compile Include="Assets\Scripts\Framework\EventMgr.cs" />
+     <Compile Include="Assets\Scripts\Framework\EventMsg.cs" />
+     <Compile Include="Assets\Scripts\Framework\ResourcesMgr.cs" />
+     <Compile Include="Assets\Scripts\Helper\Helper.cs" />
+     <Compile Include="Assets\Scripts\Helper\MovieConfig.cs" />
      <Compile Include="Assets\Scripts\HistoricalRecords.cs" />
      <Compile Include="Assets\Scripts\PrefabDefine.cs" />
      <Compile Include="Assets\Scripts\Recyle.cs" />
      <Compile Include="Assets\Scripts\Repertory.cs" />
-     <Compile Include="Assets\Scripts\ResourcesMgr.cs" />
      <None Include="Assets\Output\output.txt" />
      <None Include="Assets\Plugins\DOTween\readme.txt" />
      <None Include="Assets\Output\RecyleData.txt" />

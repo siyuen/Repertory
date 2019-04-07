@@ -1,3 +1,10 @@
+J:\fc2
+H:\暂分\fc2
+H:\FC2
+J:\稀有\fc2
+I:\fc2
+H:\FC2\fc2
+H:\test\fc2
 H:\暂分\AKA
 H:\暂分\ADN
 H:\暂分\261ARA
@@ -7,3 +14,11 @@ H:\暂分\300MIUM
 H:\暂分\ABP
 H:\暂分\ABS
 H:\暂分\ABY
+J:\系列\XVSR
+H:\暂分\XRW
+J:\系列\VENU
+H:\暂分\RBD
+J:\系列\JUY
+I:\新建文件夹
+J:\系列\MIAE
+H:\test

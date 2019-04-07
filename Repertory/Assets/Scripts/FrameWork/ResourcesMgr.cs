@@ -75,5 +75,6 @@ public class ResourcesMgr : MonoBehaviour {
         {
             goPool[name].Add(go);
         }
+        go.SetActive(false);
     }
 }

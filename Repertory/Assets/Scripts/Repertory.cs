@@ -16,7 +16,8 @@ public class Repertory : MonoBehaviour {
     public const string EXTENSION_MP4 = ".mp4";
     public const string EXTENSION_MKV = ".mkv";
     public const string EXTENSION_RMVB = ".rmvb";
-    public const string EXTENSION_DIVX = ".divx"; 
+    public const string EXTENSION_DIVX = ".divx";
+    public const string TEST = ".txt";
     //每行个数
     public const int ROW_COUNT = 10;
     //框
@@ -27,6 +28,7 @@ public class Repertory : MonoBehaviour {
     public const int NAME_MIN = 3;
     //引用ui
     public Button btn;
+    public Button reNameBtn;
     public InputField outputText;
     public InputField inputText;
     public InputField debugText;
@@ -56,12 +58,10 @@ public class Repertory : MonoBehaviour {
         allNumber.onValueChanged.AddListener(SecondType);
 
         btn.onClick.AddListener(LogPath);
-    }
+        reNameBtn.onClick.AddListener(ResetName);
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        EventMgr.Instance().AddEventListener(EventDefine.ONCLICK_RECARD, OnClickRecard);
+    }
 
     #region 事件
     //[MenuItem("Tools/遍历文件")]
@@ -140,6 +140,52 @@ public class Repertory : MonoBehaviour {
     }
 
     /// <summary>
+    /// 重置文件名字,去除番号与前缀中间的其他符号
+    /// </summary>
+    private void ResetName()
+    {
+        RefreshOutPut();
+        GetPath();
+        if (string.IsNullOrEmpty(PATH))
+        {
+            debugText.text = "路径不能为空";
+            return;
+        }
+
+        string[] files = Directory.GetFiles(PATH);
+        foreach (var path in files)
+        {
+            string extension = Path.GetExtension(path);
+            //获取所有文件夹中包含后缀为xx的路径  
+            if (extension == EXTENSION_AVI || extension == EXTENSION_WMV ||
+                extension == EXTENSION_MP4 || extension == EXTENSION_MKV ||
+                extension == EXTENSION_RMVB || extension == EXTENSION_DIVX ||
+                extension == TEST)
+            {
+                //从真实文件名开始添加
+                string name = path.Substring(PATH.Length);
+                string pre = string.IsNullOrEmpty(inputText.text) ? "" : inputText.text;
+
+                RemovePre(ref name);
+                Helper.String2Int2(ref name);
+                name = PATH + "\\" + pre + "_" + name;
+
+                if (File.Exists(path))
+                    File.Move(path, name);
+                //data.Add(name);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 点击历史记录,传路径
+    /// </summary>
+    private void OnClickRecard(EventParam param)
+    {
+        singleNumber.transform.Find("InputField").GetComponent<InputField>().text = param.StrParam;
+        OnSubmitPath(param.StrParam);
+    }
+    /// <summary>
     /// 输出日志
     /// </summary>
     private void SetDebug(List<string> data)
@@ -173,7 +219,7 @@ public class Repertory : MonoBehaviour {
     /// <summary>
     /// 提交路径,单一模式下补全
     /// </summary>
-    private void OnSubmitPath(string text)
+    public void OnSubmitPath(string text)
     {
         if (string.IsNullOrEmpty(text)) return;
 
@@ -217,7 +263,8 @@ public class Repertory : MonoBehaviour {
             //获取所有文件夹中包含后缀为xx的路径  
             if (extension == EXTENSION_AVI || extension == EXTENSION_WMV ||
                 extension == EXTENSION_MP4 || extension == EXTENSION_MKV ||
-                extension == EXTENSION_RMVB || extension == EXTENSION_DIVX)
+                extension == EXTENSION_RMVB || extension == EXTENSION_DIVX ||
+                extension == TEST)
             {
                 //从真实文件名开始添加
                 string name = path.Substring(PATH.Length);
@@ -229,13 +276,6 @@ public class Repertory : MonoBehaviour {
                 data.Add(name);
             }
         }
-
-        //if (Directory.GetDirectories(dirPath).Length > 0)  //遍历所有文件夹  
-        //{
-        //    foreach (string path in Directory.GetDirectories(dirPath))
-        //    {0);
-        //    }
-        //}
     }
 
     private void GetDirs(string dirPath, ref Dictionary<string, List<string>> data)
